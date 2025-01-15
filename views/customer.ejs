@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Profile</title>
+  <link rel="stylesheet" href="style/style1.css">
+
+  
+</head>
+<body>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+
+  <nav class="navbar navbar-expand-lg navbar_bg">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">fru_veg</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Features</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Pricing</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="form-container">
+    <form class="responsive-form">
+      <h2>Fill the Details</h2>
+
+      <div class="form-row">
+        <div class="form-group full-width">
+          <label for="full-name">Full Name</label>
+          <input type="text" id="full-name" name="full-name" required placeholder="Enter your full name">
+        </div>
+      </div>
+
+      <!-- Group Mobile Number and Send OTP together -->
+      <!-- <div class="form-row mobile-otp-group">
+        <div class="form-group">
+          <label for="mobile">Mobile Number</label>
+          <input type="text" id="mobile" name="mobile" required placeholder="Enter 10-digit mobile number" pattern="\d{10}" maxlength="10">
+        </div>
+        <div class="form-group">
+          <button type="button" id="send-otp-btn">Send OTP</button>
+        </div>
+      </div> -->
+
+
+      <div class="form-row">
+        <div class="form-group">
+            <label for="mobile">Mobile Number</label>
+            <input type="text" id="mobile" name="mobile" required placeholder="Enter 10-digit mobile number" pattern="\d{10}" maxlength="10">
+        </div>
+        <div class="form-group">
+          <label for="userid">Userid</label>
+          <input type="text" id="userid" name="userid" required placeholder="Enter userid ">
+        </div>
+      </div>
+
+      <!-- Group OTP and Verify OTP together -->
+
+      <!-- <div class="form-row otp-verify-group">
+        <div class="form-group">
+          <label for="otp">Enter OTP</label>
+          <input type="text" id="otp" name="otp" required placeholder="Enter OTP">
+        </div>
+        <div class="form-group">
+          <button type="button" id="verify-otp-btn">Verify OTP</button>
+        </div>
+      </div> -->
+
+      <div class="form-row">
+        <div class="form-group full-width">
+          <label for="address">Full Address</label>
+          <input type="text" id="address" name="address" required placeholder="Enter your full address">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="country">Country</label>
+          <select id="country" name="country" required>
+            <option value="">Select Country</option>
+            <option value="country1">Country 1</option>
+            <option value="country2">Country 2</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="state">State</label>
+          <select id="state" name="state" required>
+            <option value="">Select State</option>
+            <option value="state1">State 1</option>
+            <option value="state2">State 2</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="district">Select District</label>
+          <select id="district" name="district" required>
+            <option value="">Select District</option>
+            <option value="ahmedabad">Ahmedabad</option>
+            <option value="mahesana">Mahesana</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="city">Select Area/City</label>
+          <select id="city" name="city" required>
+            <option value="">Select Area/City</option>
+            <option value="kadi">Kadi</option>
+            <option value="chandkheda">Chandkheda</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="pincode">Enter your Pincode</label>
+          <input type="text" id="pincode" name="pincode" required placeholder="Enter your pincode" maxlength="6" pattern="\d{6}">
+        </div>
+      </div>
+
+      <button type="submit" class="submit-btn">Create Profile</button>
+    </form>
+</div>
+
+
+
+
+
+
+
+
+</body>
+</html>
