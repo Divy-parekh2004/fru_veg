@@ -1,11 +1,9 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
-const bcrypt = require('bcrypt');
 const app = express();
 const port = 8080;
 
-// Define all schemas
 const customerSchema = new mongoose.Schema({
     fullname: { type: String, required: true },
     mobilenumber: { type: String, required: true },
@@ -31,33 +29,20 @@ const delieverSchema = new mongoose.Schema({
     pincode: { type: String }
 });
 
-const userSchema = new mongoose.Schema({
-    fullName: { type: String, required: true },
-    email: { type: String, required: true, unique: true },
-    mobile: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
-    createdAt: { type: Date, default: Date.now }
-});
-
-// Connect to MongoDB
 mongoose
     .connect('mongodb://127.0.0.1:27017/fru_veg')
     .then(() => console.log("MongoDB Connected"))
     .catch((err) => console.log("MongoDB Connection Error:", err));
 
-// Create models
 const Customer = mongoose.model("customer", customerSchema);
 const Deliever = mongoose.model("deliever", delieverSchema);
-const User = mongoose.model("User", userSchema);
 
-// Middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Routes
 app.get("/", (req, res) => {
     res.render("index.ejs");
 });
@@ -70,83 +55,6 @@ app.get('/deliever', (req, res) => {
     res.render("deliever.ejs");
 });
 
-// User registration route
-app.post('/api/auth/signup', async (req, res) => {
-    try {
-        // Check if user with email already exists
-        const emailExists = await User.findOne({ email: req.body.email });
-        if (emailExists) {
-            return res.status(400).json({ success: false, message: 'Email already exists' });
-        }
-
-        // Check if user with mobile already exists
-        const mobileExists = await User.findOne({ mobile: req.body.mobile });
-        if (mobileExists) {
-            return res.status(400).json({ success: false, message: 'Mobile number already exists' });
-        }
-
-        // Check if passwords match
-        if (req.body.password !== req.body.confirmPassword) {
-            return res.status(400).json({ success: false, message: 'Passwords do not match' });
-        }
-
-        // Hash the password
-        const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(req.body.password, salt);
-
-        // Create a new user
-        const newUser = new User({
-            fullName: req.body.fullName,
-            email: req.body.email,
-            mobile: req.body.mobile,
-            password: hashedPassword
-        });
-
-        // Save the user
-        await newUser.save();
-        
-        res.status(201).json({ 
-            success: true, 
-            message: 'Registration successful! You can now log in.' 
-        });
-    } catch (error) {
-        console.error('Signup error:', error);
-        res.status(500).json({ success: false, message: 'Server error during registration' });
-    }
-});
-
-// User login route
-app.post('/api/auth/login', async (req, res) => {
-    try {
-        // Find user by email
-        const user = await User.findOne({ email: req.body.email });
-        if (!user) {
-            return res.status(400).json({ success: false, message: 'Invalid email or password' });
-        }
-
-        // Validate password
-        const validPassword = await bcrypt.compare(req.body.password, user.password);
-        if (!validPassword) {
-            return res.status(400).json({ success: false, message: 'Invalid email or password' });
-        }
-
-        // Login successful
-        res.status(200).json({ 
-            success: true, 
-            message: 'Login successful',
-            user: {
-                id: user._id,
-                fullName: user.fullName,
-                email: user.email
-            }
-        });
-    } catch (error) {
-        console.error('Login error:', error);
-        res.status(500).json({ success: false, message: 'Server error during login' });
-    }
-});
-
-// Existing customer and delivery routes
 app.post('/deliever', (req, res) => {
     const { role, fullname, mobilenumber, userid, full_address, country, state, district, area_city, pincode } = req.body;
 
@@ -204,7 +112,6 @@ app.post('/customer', (req, res) => {
         });
 });
 
-// Start the server
 app.listen(port, () => {
     console.log(`🚀 Server is running on http://localhost:${port}`);
 });

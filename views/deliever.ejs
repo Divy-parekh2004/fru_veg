@@ -38,8 +38,17 @@
     </div>
   </nav>
   <div class="form-container">
-    <form class="responsive-form" action="/customer" method="post">
+    <form class="responsive-form" action="/deliever" method="post">
       <h2>Fill the Details</h2>
+
+      <div class="form-group">
+        <label for="your-role">your_role</label>
+        <select name="role" id="role" requiered>
+        <option value="">your role</option>
+        <option value="show_owner">shop_owner</option>
+        <option value="not_owner_only_deliever">not_owner_only_deliever</option>
+      </select>
+      </div>
 
       <div class="form-row">
         <div class="form-group full-width">

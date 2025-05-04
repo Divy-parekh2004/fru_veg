@@ -11,16 +11,23 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- Your Navbar HTML -->
+<!-- Bootstrap CSS & JS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar_bg">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">fru_veg</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
+          <a class="nav-link active" href="#">Home</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Features</a>
@@ -28,13 +35,94 @@
         <li class="nav-item">
           <a class="nav-link" href="#">Pricing</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-        </li>
       </ul>
+      <!-- Login Button -->
+      <button class="btn btn-outline-primary ms-3" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
     </div>
   </div>
 </nav>
+
+<!-- Signup Modal -->
+<div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="signupModalLabel">Sign Up</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      
+      <div class="modal-body">
+        <!-- Message container will be inserted here by JavaScript -->
+        <form id="signupForm">
+          <div class="mb-3">
+            <label for="signupName" class="form-label">Full Name</label>
+            <input type="text" class="form-control" id="signupName" placeholder="John Doe" required>
+          </div>
+          
+          <div class="mb-3">
+            <label for="signupEmail" class="form-label">Email Address</label>
+            <input type="email" class="form-control" id="signupEmail" placeholder="name@example.com" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="signupMobile" class="form-label">Mobile Number</label>
+            <input type="tel" class="form-control" id="signupMobile" placeholder="e.g. 9876543210" pattern="[0-9]{10}" required>
+          </div>
+          
+          <div class="mb-3">
+            <label for="signupPassword" class="form-label">Password</label>
+            <input type="password" class="form-control" id="signupPassword" placeholder="Create a password" required minlength="6">
+          </div>
+          
+          <div class="mb-3">
+            <label for="signupConfirmPassword" class="form-label">Confirm Password</label>
+            <input type="password" class="form-control" id="signupConfirmPassword" placeholder="Re-enter password" required minlength="6">
+          </div>
+          
+          <button type="submit" class="btn btn-success w-100">Create Account</button>
+        </form>
+
+        <hr>
+        <p class="text-center mb-0">
+          Already have an account? 
+          <a href="#" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Login Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="loginModalLabel">Login</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- Message container will be inserted here by JavaScript -->
+        <form id="loginForm">
+          <div class="mb-3">
+            <label for="loginEmail" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="loginEmail" placeholder="name@example.com" required>
+          </div>
+          <div class="mb-3">
+            <label for="loginPassword" class="form-label">Password</label>
+            <input type="password" class="form-control" id="loginPassword" placeholder="Enter your password" required>
+          </div>
+          <button type="submit" class="btn btn-primary w-100">Login</button>
+        </form>
+        <hr>
+        <p class="text-center mb-0">
+          Don't have an account? 
+          <a href="#" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#signupModal">Sign up</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="home_starting">
   <div class="home_starting_heading">
@@ -65,17 +153,17 @@
       <img src="/images/fru_veg_2.jpg" alt="Description of Image" />
     </div>
     <div class="home_con_2_text">
-      <h1 class="header">"Fresh Fruits & Veggies,  Delivery!"</h1>
-      <p class="description">Get the best quality fruits and vegetables, sourced from local street vendors and delivered to your home. Enjoy fresh, healthy produce with the ease of home delivery, supporting local vendors! Convenient, fast, and fresh – right at your doorstep</p>
+      <h1 class="header">"Get Your fruveggies from your home"</h1>
+      <p class="description">Enjoy the best quality fruits and vegetables, sourced directly from local street vendors and delivered straight to your home. Experience the convenience of fresh, healthy produce with the ease of home delivery, all while supporting local vendors. Quick, reliable, and fresh – delivered right to you!</p>
     </div>
   </div>
-</div>
+</div>n
 
 <div class="home_con_3">
   <div class="home_con_3_content">
     <div class="home_con_3_text">
-      <h1 class="header">"Fresh Fruits & Veggies,  Delivery!"</h1>
-      <p class="description">Get the best quality fruits and vegetables, sourced from local street vendors and delivered to your home. Enjoy fresh, healthy produce with the ease of home delivery, supporting local vendors! Convenient, fast, and fresh – right at your doorstep</p>
+      <h1 class="header">"Stay Home We Deliever"</h1>
+      <p class="description">Get the finest quality fruits and vegetables, handpicked from local street vendors, and delivered right to your doorstep. Enjoy fresh, healthy produce without leaving your home, all while supporting local vendors. Fast, convenient, and fresh – brought to you with care!</p>
     </div>
     <div class="home_con_3_image">
       <img src="/images/fru_veg_3.jpg" alt="Description of Image" />
@@ -119,6 +207,7 @@
 <!-- Bootstrap JS and Popper.js -->
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+<script src="/js/auth.js"></script>
 
 
 
@@ -128,3 +217,10 @@
 
 </body>
 </html>
+
+
+
+
+
+
+

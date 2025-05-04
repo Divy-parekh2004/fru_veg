@@ -1,0 +1,124 @@
+const express = require('express');
+const mongoose = require('mongoose');
+const { type } = require('os');
+const app = express();
+const path = require('path');
+const port = 8080 ; 
+
+const customerSchema = new mongoose.Schema({
+    fullname:{
+        type:String,
+        required:true,
+    },
+    mobilenumber:{
+        type : String , 
+        required : true ,
+    },
+    userid : {
+        type : String ,
+        required : true ,
+    },
+    full_address : {
+        type: String ,
+        required : true ,
+    },
+    country : {
+        type : String , 
+        required : true ,
+    },
+    state : {
+        type : String,
+    },
+    district :{
+        type : String,
+    },
+    area_city : {
+        type : String ,
+    },
+    pincode : {
+        type : String ,
+    }
+
+})
+
+mongoose
+.connect('mongodb://127.0.0.1:27017/fru_veg')
+.then(()=> console.log("mongodb connected"))
+.catch((err) => console.log("mongodb get error" , err))
+
+app.post('/customer', (req, res) => {
+    const { fullname, mobilenumber, userid, full_address, country, state, district, area_city, pincode } = req.body;
+
+    // Create a new customer object
+    const newCustomer = new customer({
+        fullname,
+        mobilenumber,
+        userid,
+        full_address,
+        country,
+        state,
+        district,
+        area_city,
+        pincode
+    });
+
+    // Save the customer to the database
+    newCustomer.save()
+        .then(() => {
+            res.redirect('/'); // Redirect to home page or you can send a success response
+        })
+        .catch((err) => {
+            console.error("Error saving customer data: ", err);
+            res.status(500).send("Server error");
+        });
+});
+
+
+const customer = mongoose.model("customer" ,customerSchema )
+app.use(express.urlencoded({ extended: true }));
+// Create a route for handling the form submission
+app.post('/customer', (req, res) => {
+    const { fullname, mobilenumber, userid, full_address, country, state, district, area_city, pincode } = req.body;
+
+    // Create a new customer object
+    const newCustomer = new customer({
+        fullname,
+        mobilenumber,
+        userid,
+        full_address,
+        country,
+        state,
+        district,
+        area_city,
+        pincode
+    });
+
+    // Save the customer to the database
+    newCustomer.save()
+        .then(() => {
+            res.redirect('/'); // Redirect to home page or you can send a success response
+        })
+        .catch((err) => {
+            console.error("Error saving customer data: ", err);
+            res.status(500).send("Server error");
+        });
+});
+
+
+
+// aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+app.set('view engine' , 'ejs');
+app.set('views' , path.join(__dirname , 'views'));
+app.use(express.static(path.join(__dirname , 'public')));
+
+app.get("/" , (req , res) => {
+    res.render("index.ejs");
+});
+
+app.get('/customer', (req, res) => {
+    res.render("customer.ejs");  // Render the customer.ejs page
+  });
+
+app.listen(port , () => {
+    console.log(`listening on port ${port}`);
+})

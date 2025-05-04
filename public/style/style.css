@@ -1,6 +1,11 @@
 .navbar_bg{
     background-color: rgb(160, 94, 154);
 }
+
+.nav-link{
+  color: white !important;
+}
+
 /* starting of home  */
 .home_starting {
     background-color: #ffffff;
