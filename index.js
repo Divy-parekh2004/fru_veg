@@ -68,10 +68,16 @@ const priceSchema = new mongoose.Schema({
 const Price = mongoose.model("price", priceSchema);
 
 
-mongoose
-    .connect('mongodb://127.0.0.1:27017/fru_veg')
-    .then(() => console.log("MongoDB Connected"))
-    .catch((err) => console.log("MongoDB Connection Error:", err));
+// mongoose
+//     .connect('mongodb://127.0.0.1:27017/fru_veg')
+//     .then(() => console.log("MongoDB Connected"))
+//     .catch((err) => console.log("MongoDB Connection Error:", err));
+
+mongoose.connect(process.env.MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+
 
 const Customer = mongoose.model("customer", customerSchema);
 const Deliever = mongoose.model("deliever", delieverSchema);
