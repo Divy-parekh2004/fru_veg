@@ -72,10 +72,14 @@ const Price = mongoose.model("price", priceSchema);
 //     .connect('mongodb://127.0.0.1:27017/fru_veg')
 //     .then(() => console.log("MongoDB Connected"))
 //     .catch((err) => console.log("MongoDB Connection Error:", err));
-
 mongoose.connect(process.env.MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+})
+.then(() => console.log("✅ MongoDB Atlas Connected Successfully"))
+.catch((err) => {
+    console.error("❌ MongoDB Connection Error:", err);
+    process.exit(1); // Optional: stop server if DB fails
 });
 
 
