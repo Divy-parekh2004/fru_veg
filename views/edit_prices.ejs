@@ -1,0 +1,141 @@
+<h2 style="text-align: center;">📝 Edit Fruit & Vegetable Prices (per kg)</h2>
+
+<form action="/edit-prices" method="POST" id="priceForm">
+  <div class="table-wrapper">
+    <table id="priceTable">
+      <thead>
+        <tr>
+          <th>Item Name</th>
+          <th>Price (₹/kg)</th>
+          <th>Remove</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% priceList.forEach((item, index) => { %>
+          <tr>
+            <td><input name="names" type="text" value="<%= item.name %>" required></td>
+            <td><input name="prices" type="number" step="0.01" value="<%= item.price %>" required></td>
+            <td><button type="button" onclick="removeRow(this)">❌</button></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="button-row">
+    <button type="button" onclick="addRow()">➕ Add Item</button>
+    <button type="submit">💾 Save Prices</button>
+  </div>
+</form>
+
+<script>
+  function addRow() {
+    const table = document.getElementById('priceTable').getElementsByTagName('tbody')[0];
+    const row = table.insertRow();
+    row.innerHTML = `
+      <td><input name="names" type="text" required></td>
+      <td><input name="prices" type="number" step="0.01" required></td>
+      <td><button type="button" onclick="removeRow(this)">❌</button></td>
+    `;
+  }
+
+  function removeRow(button) {
+    button.closest('tr').remove();
+  }
+</script>
+
+<style>
+  form {
+    max-width: 900px;
+    margin: auto;
+    padding: 10px;
+  }
+
+  .table-wrapper {
+    overflow-x: auto;
+  }
+
+  table {
+    width: 100%;
+    margin-top: 10px;
+    border-collapse: collapse;
+    min-width: 400px;
+  }
+
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+
+  input[type="text"],
+  input[type="number"] {
+    width: 100%;
+    padding: 6px;
+    box-sizing: border-box;
+  }
+
+  button {
+    padding: 8px 14px;
+    margin: 6px 4px;
+    border: none;
+    background-color: #28a745;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  button[type="button"]:hover {
+    background-color: #218838;
+  }
+
+  button[type="submit"] {
+    background-color: #007bff;
+  }
+
+  button[type="submit"]:hover {
+    background-color: #0056b3;
+  }
+
+  .button-row {
+    text-align: center;
+    margin-top: 15px;
+  }
+
+  @media (max-width: 600px) {
+    table, thead, tbody, th, td, tr {
+      display: block;
+    }
+
+    thead tr {
+      display: none;
+    }
+
+    tr {
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      padding: 10px;
+      background-color: #f9f9f9;
+    }
+
+    td {
+      border: none;
+      padding: 8px 0;
+      position: relative;
+    }
+
+    td::before {
+      content: attr(data-label);
+      font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
+      color: #333;
+    }
+
+    td input {
+      width: 100%;
+    }
+  }
+</style>

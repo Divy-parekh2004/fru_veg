@@ -1,0 +1,95 @@
+<h2 style="text-align: center;">🚚 Deliverers in Your Area</h2>
+
+<% if (delievers.length === 0) { %>
+    <p style="text-align: center;">No deliverers found in your area.</p>
+<% } else { %>
+    <div class="grid">
+        <% delievers.forEach(deliever => { %>
+            <div class="card">
+                <h3><%= deliever.fullname %></h3>
+                <p><strong>Mobile:</strong> <%= deliever.mobilenumber %></p>
+                <p><strong>Address:</strong> <%= deliever.full_address %></p>
+                <p><strong>City:</strong> <%= deliever.area_city %></p>
+                <p><strong>State:</strong> <%= deliever.state %></p>
+                <p><strong>Pincode:</strong> <%= deliever.pincode %></p>
+
+                <!-- 🛒 View Price List Button -->
+                <a href="/deliever/<%= deliever._id %>/prices" class="btn">🛒 View Price List</a>
+            </div>
+        <% }) %>
+    </div>
+<% } %>
+
+<a href="/" class="back-btn">🔙 Go Back</a>
+
+<style>
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 16px;
+        margin: 20px 10px;
+    }
+
+    .card {
+        background-color: #f9f9f9;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        transition: transform 0.2s ease;
+    }
+
+    .card:hover {
+        transform: translateY(-4px);
+    }
+
+    .btn {
+        margin-top: 10px;
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #28a745;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+        text-align: center;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .btn:hover {
+        background-color: #218838;
+    }
+
+    .back-btn {
+        margin: 20px auto;
+        display: block;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        text-align: center;
+        width: max-content;
+    }
+
+    .back-btn:hover {
+        background-color: #0056b3;
+    }
+
+    @media (max-width: 480px) {
+        h2 {
+            font-size: 20px;
+            margin-top: 15px;
+        }
+
+        .card {
+            padding: 12px;
+            font-size: 14px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            font-size: 14px;
+        }
+    }
+</style>

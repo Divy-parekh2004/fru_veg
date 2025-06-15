@@ -1,0 +1,41 @@
+<!-- views/matching_customers.ejs -->
+<h2>📦 Customers in Your Location</h2>
+
+<% if (customers.length === 0) { %>
+    <p>No customers found in your area.</p>
+<% } else { %>
+    <div class="customer-grid">
+        <% customers.forEach(customer => { %>
+            <div class="card">
+                <h3><%= customer.fullname %></h3>
+                <p><strong>Mobile:</strong> <%= customer.mobilenumber %></p>
+                <p><strong>Address:</strong> <%= customer.full_address %></p>
+                <p><strong>City:</strong> <%= customer.area_city %></p>
+                <p><strong>State:</strong> <%= customer.state %></p>
+                <p><strong>Pincode:</strong> <%= customer.pincode %></p>
+            </div>
+        <% }) %>
+    </div>
+<% } %>
+
+<a href="/" style="margin-top: 20px; display: inline-block;">🔙 Go Back</a>
+
+<style>
+    .customer-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 16px;
+        margin-top: 20px;
+    }
+
+    .card {
+        background-color: #f1f1f1;
+        border-radius: 8px;
+        padding: 16px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+        color: #333;
+    }
+</style>

@@ -1,226 +1,214 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>fru-veg</title>
-    <link rel="stylesheet" href="/style/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>fru-veg</title>
+  <link rel="stylesheet" href="/style/style.css">
 </head>
+
 <body>
-    <!-- Bootstrap 5 CDN for Navbar -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap 5 CDN for Navbar -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 
-<!-- Your Navbar HTML -->
-<!-- Bootstrap CSS & JS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Your Navbar HTML -->
+  <!-- Bootstrap CSS & JS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar_bg">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">fru_veg</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+  <!-- Navbar -->
 
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item">
-          <a class="nav-link active" href="#">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Features</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Pricing</a>
-        </li>
-      </ul>
-      <!-- Login Button -->
-      <button class="btn btn-outline-primary ms-3" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
-    </div>
-  </div>
-</nav>
+  <nav class="navbar navbar-expand-lg navbar_bg">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">fru_veg</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-<!-- Signup Modal -->
-<div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-    
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="signupModalLabel">Sign Up</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      
-      <div class="modal-body">
-        <!-- Message container will be inserted here by JavaScript -->
-        <form id="signupForm">
-          <div class="mb-3">
-            <label for="signupName" class="form-label">Full Name</label>
-            <input type="text" class="form-control" id="signupName" placeholder="John Doe" required>
-          </div>
-          
-          <div class="mb-3">
-            <label for="signupEmail" class="form-label">Email Address</label>
-            <input type="email" class="form-control" id="signupEmail" placeholder="name@example.com" required>
-          </div>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link active" href="#">Home</a>
+          </li>
+          <!-- <li class="nav-item">
+          <a class="nav-link" href="#">Orders</a>
+        </li> -->
+          <li class="nav-item">
+            <a class="nav-link" href="/matching-delievers">delievers</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/matching-customers">Customers Matching</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/edit-prices">🛒 Edit Prices</a>
+          </li>
 
-          <div class="mb-3">
-            <label for="signupMobile" class="form-label">Mobile Number</label>
-            <input type="tel" class="form-control" id="signupMobile" placeholder="e.g. 9876543210" pattern="[0-9]{10}" required>
-          </div>
-          
-          <div class="mb-3">
-            <label for="signupPassword" class="form-label">Password</label>
-            <input type="password" class="form-control" id="signupPassword" placeholder="Create a password" required minlength="6">
-          </div>
-          
-          <div class="mb-3">
-            <label for="signupConfirmPassword" class="form-label">Confirm Password</label>
-            <input type="password" class="form-control" id="signupConfirmPassword" placeholder="Re-enter password" required minlength="6">
-          </div>
-          
-          <button type="submit" class="btn btn-success w-100">Create Account</button>
-        </form>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Pricing</a>
+          </li>
+        </ul>
 
-        <hr>
-        <p class="text-center mb-0">
-          Already have an account? 
-          <a href="#" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a>
-        </p>
+        <!-- Customer Profile Button -->
+        <% if (session && user && user.hasCustomerProfile) { %>
+          <a class="btn btn-outline-info ms-3" href="/my_profile_customer">Profile</a>
+          <% } %>
+
+            <!-- Deliever Profile Button -->
+            <% if (session && user && user.hasDelieverProfile) { %>
+              <a class="btn btn-outline-info ms-3" href="/my_del_profile">Profile</a>
+              <% } %>
+
+
+                <!-- Login/Logout Button -->
+                <% if (session) { %>
+                  <a class="btn btn-outline-danger ms-3" href="/logout">Logout</a>
+                  <% } else { %>
+                    <a class="btn btn-outline-success ms-3" href="/login">Login</a>
+                    <% } %>
+
       </div>
     </div>
-  </div>
-</div>
+  </nav>
 
-<!-- Login Modal -->
-<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="loginModalLabel">Login</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <!-- Message container will be inserted here by JavaScript -->
-        <form id="loginForm">
-          <div class="mb-3">
-            <label for="loginEmail" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="loginEmail" placeholder="name@example.com" required>
-          </div>
-          <div class="mb-3">
-            <label for="loginPassword" class="form-label">Password</label>
-            <input type="password" class="form-control" id="loginPassword" placeholder="Enter your password" required>
-          </div>
-          <button type="submit" class="btn btn-primary w-100">Login</button>
-        </form>
-        <hr>
-        <p class="text-center mb-0">
-          Don't have an account? 
-          <a href="#" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#signupModal">Sign up</a>
-        </p>
-      </div>
-    </div>
-  </div>
-</div>
 
-<div class="home_starting">
-  <div class="home_starting_heading">
+  <div class="home_starting">
+    <div class="home_starting_heading">
       <h1>Fresh Fruits & Vegetables Delivered to Your Door</h1>
       <p>Choose from a wide variety of healthy and fresh produce, delivered straight to you.</p>
-  </div>
-  <div class="home_buttons">
-      <button class="signup-btn" type="submit" #="/Customer">As a Customer</button>
-      <button class="signup-btn">As a Deliver</button>
-  </div>
-</div>
+    </div>
+    <!-- <div class="home_buttons">
 
-<div class="home_con_1">
-  <div class="home_con_1_content">
-    <div class="home_con_1_text">
-      <h1 class="header">"Fresh Fruits & Veggies,  Delivery!"</h1>
-      <p class="description">Get the best quality fruits and vegetables, sourced from local street vendors and delivered to your home. Enjoy fresh, healthy produce with the ease of home delivery, supporting local vendors! Convenient, fast, and fresh – right at your doorstep</p>
+      <form method="get" action="/customer">
+        <button class="signup-btn" type="submit">As a Customer</button>
+      </form>
+  
+      <form method="get" action="/deliever">
+        <button class="signup-btn" type="submit">As a Deliver</button>
+      </form>
+  </div> -->
+    <div class="home_buttons">
+
+      <% if (session) { %>
+        <% if (!user || !user.hasCustomerProfile) { %>
+          <form method="get" action="/customer">
+            <button class="signup-btn" type="submit">As a Customer</button>
+          </form>
+          <% } else { %>
+            <!-- <form method="get" action="my_profile_customer">
+              <button class="signup-btn" type="submit">Your Profile</button>
+            </form> -->
+            <% } %>
+              <% } else { %>
+                <!-- Not logged in: show default buttons -->
+                <form method="get" action="/customer">
+                  <button class="signup-btn" type="submit">As a Customer</button>
+                </form>
+                <% } %>
+
+                  <% if (session) { %>
+                    <% if (!user || !user.hasDelieverProfile) { %>
+                      <form method="get" action="/deliever">
+                        <button class="signup-btn" type="submit">As a Deliver</button>
+                      </form>
+                      <% } else { %>
+                        <!-- <form method="get" action="my_del_profile">
+                          <button class="signup-btn" type="submit">my_del_profile</button>
+                        </form> -->
+                        <% } %>
+                          <% } else { %>
+                            <!-- Not logged in: show default buttons -->
+                            <form method="get" action="/deliever">
+                              <button class="signup-btn" type="submit">As a Deliver</button>
+                            </form>
+                            <% } %>
+
+                              <!-- <form method="get" action="/deliever">
+    <button class="signup-btn" type="submit">As a Deliver</button>
+  </form> -->
+
     </div>
-    <div class="home_con_1_image">
-      <img src="/images/fru_veg_1.jpg" alt="Description of Image" />
-    </div>
+
   </div>
-</div>
 
-<div class="home_con_2">
-  <div class="home_con_2_content">
-    <div class="home_con_2_image">
-      <img src="/images/fru_veg_2.jpg" alt="Description of Image" />
-    </div>
-    <div class="home_con_2_text">
-      <h1 class="header">"Get Your fruveggies from your home"</h1>
-      <p class="description">Enjoy the best quality fruits and vegetables, sourced directly from local street vendors and delivered straight to your home. Experience the convenience of fresh, healthy produce with the ease of home delivery, all while supporting local vendors. Quick, reliable, and fresh – delivered right to you!</p>
-    </div>
-  </div>
-</div>n
-
-<div class="home_con_3">
-  <div class="home_con_3_content">
-    <div class="home_con_3_text">
-      <h1 class="header">"Stay Home We Deliever"</h1>
-      <p class="description">Get the finest quality fruits and vegetables, handpicked from local street vendors, and delivered right to your doorstep. Enjoy fresh, healthy produce without leaving your home, all while supporting local vendors. Fast, convenient, and fresh – brought to you with care!</p>
-    </div>
-    <div class="home_con_3_image">
-      <img src="/images/fru_veg_3.jpg" alt="Description of Image" />
-    </div>
-  </div>
-</div>
-
-
-<footer class="footer">
-  <div class="footer_content">
-    <div class="footer_left">
-      <h3>Fresh Fruits & Veggies</h3>
-      <p>Delivering fresh, healthy produce right to your doorstep!</p>
-    </div>
-    <div class="footer_center">
-      <h4>Quick Links</h4>
-      <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Shop</a></li>
-        <li><a href="#">About Us</a></li>
-        <li><a href="#">Contact</a></li>
-        <li><a href="#">FAQs</a></li>
-      </ul>
-    </div>
-    <div class="footer_right">
-      <h4>Connect With Us</h4>
-      <ul>
-        <li><a href="#">Facebook</a></li>
-        <li><a href="#">Instagram</a></li>
-        <li><a href="#">Twitter</a></li>
-        <li><a href="#">LinkedIn</a></li>
-      </ul>
+  <div class="home_con_1">
+    <div class="home_con_1_content">
+      <div class="home_con_1_text">
+        <h1 class="header">"Fresh Fruits & Veggies, Delivery!"</h1>
+        <p class="description">Get the best quality fruits and vegetables, sourced from local street vendors and
+          delivered to your home. Enjoy fresh, healthy produce with the ease of home delivery, supporting local vendors!
+          Convenient, fast, and fresh – right at your doorstep</p>
+      </div>
+      <div class="home_con_1_image">
+        <img src="/images/fru_veg_1.jpg" alt="Description of Image" />
+      </div>
     </div>
   </div>
-  <div class="footer_bottom">
-    <p>&copy; 2024 Fresh Fruits & Veggies. All Rights Reserved.</p>
+
+  <div class="home_con_2">
+    <div class="home_con_2_content">
+      <div class="home_con_2_image">
+        <img src="/images/fru_veg_2.jpg" alt="Description of Image" />
+      </div>
+      <div class="home_con_2_text">
+        <h1 class="header">"Get Your fruveggies from your home"</h1>
+        <p class="description">Enjoy the best quality fruits and vegetables, sourced directly from local street vendors
+          and delivered straight to your home. Experience the convenience of fresh, healthy produce with the ease of
+          home delivery, all while supporting local vendors. Quick, reliable, and fresh – delivered right to you!</p>
+      </div>
+    </div>
+  </div>n
+
+  <div class="home_con_3">
+    <div class="home_con_3_content">
+      <div class="home_con_3_text">
+        <h1 class="header">"Stay Home We Deliever"</h1>
+        <p class="description">Get the finest quality fruits and vegetables, handpicked from local street vendors, and
+          delivered right to your doorstep. Enjoy fresh, healthy produce without leaving your home, all while supporting
+          local vendors. Fast, convenient, and fresh – brought to you with care!</p>
+      </div>
+      <div class="home_con_3_image">
+        <img src="/images/fru_veg_3.jpg" alt="Description of Image" />
+      </div>
+    </div>
   </div>
-</footer>
 
+  <footer class="footer">
+    <div class="footer_content">
+      <div class="footer_left">
+        <h3>Fresh Fruits & Veggies</h3>
+        <p>Delivering fresh, healthy produce right to your doorstep!</p>
+      </div>
+      <div class="footer_center">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Shop</a></li>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">FAQs</a></li>
+        </ul>
+      </div>
+      <div class="footer_right">
+        <h4>Connect With Us</h4>
+        <ul>
+          <li><a href="#">Facebook</a></li>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">Twitter</a></li>
+          <li><a href="#">LinkedIn</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer_bottom">
+      <p>&copy; 2024 Fresh Fruits & Veggies. All Rights Reserved.</p>
+    </div>
+  </footer>
 
-<!-- Bootstrap JS and Popper.js -->
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
-<script src="/js/auth.js"></script>
-
-
-
-<!-- Bootstrap JS, Popper.js and Bootstrap JS Bundle -->
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
 
 </body>
+
 </html>
-
-
-
-
-
-
-

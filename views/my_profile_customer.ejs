@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Profile</title>
+    <link rel="stylesheet" href="/style/cust_profile.css">
+</head>
+
+<body>
+    <div class="container fade-in">
+        <div class="header">
+            <div class="profile-icon">👤</div>
+            <h1>Customer Profile</h1>
+            <div class="status-indicator" id="statusIndicator">View Mode</div>
+        </div>
+
+        <div class="profile-content">
+           <form id="customerForm">
+    <div class="profile-section">
+        <h2 class="section-title">👋 Personal Information</h2>
+        <div class="form-grid">
+            <div class="form-group">
+                <label for="fullname">Full Name</label>
+                <input type="text" id="fullname" name="fullname" class="form-control"
+                    value="<%= customer.fullname || '' %>" disabled>
+            </div>
+            <div class="form-group">
+                <label for="mobilenumber">Mobile Number</label>
+                <input type="tel" id="mobilenumber" name="mobilenumber" class="form-control"
+                    value="<%= customer.mobilenumber || '' %>" disabled>
+            </div>
+            <div class="form-group">
+                <label for="userid">User ID</label>
+                <input type="text" id="userid" name="userid" class="form-control"
+                    value="<%= customer.userid || '' %>" disabled>
+            </div>
+        </div>
+    </div>
+
+    <div class="profile-section">
+        <h2 class="section-title">📍 Address Information</h2>
+        <div class="form-grid">
+            <div class="form-group" style="grid-column: 1 / -1;">
+                <label for="full_address">Full Address</label>
+                <textarea id="full_address" name="full_address" class="form-control" rows="3" disabled><%= customer.full_address || '' %></textarea>
+            </div>
+            <div class="form-group">
+                <label for="country">Country</label>
+                <input type="text" id="country" name="country" class="form-control"
+                    value="<%= customer.country || '' %>" disabled>
+            </div>
+            <div class="form-group">
+                <label for="state">State</label>
+                <input type="text" id="state" name="state" class="form-control"
+                    value="<%= customer.state || '' %>" disabled>
+            </div>
+            <div class="form-group">
+                <label for="area_city">Area/City</label>
+                <input type="text" id="area_city" name="area_city" class="form-control"
+                    value="<%= customer.area_city || '' %>" disabled>
+            </div>
+            <div class="form-group">
+                <label for="pincode">PIN Code</label>
+                <input type="text" id="pincode" name="pincode" class="form-control"
+                    value="<%= customer.pincode || '' %>" disabled>
+            </div>
+        </div>
+    </div>
+
+    <div class="btn-group">
+        <button type="button" class="btn btn-primary" id="editBtn">✏️ Edit Profile</button>
+        <button type="button" class="btn btn-success" id="saveBtn" style="display: none;">💾 Save
+            Changes</button>
+        <button type="button" class="btn btn-secondary" id="cancelBtn" style="display: none;">❌
+            Cancel</button>
+    </div>
+</form>
+
+        </div>
+
+    </div>
+
+    <script>
+        const form = document.getElementById('customerForm');
+        const editBtn = document.getElementById('editBtn');
+        const saveBtn = document.getElementById('saveBtn');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const statusIndicator = document.getElementById('statusIndicator');
+        const formControls = document.querySelectorAll('.form-control');
+
+        let originalData = {};
+        let isEditing = false;
+
+        // Store original data
+        function storeOriginalData() {
+            originalData = {};
+            formControls.forEach(control => {
+                originalData[control.name] = control.value;
+            });
+        }
+
+        // Initialize
+        storeOriginalData();
+
+        editBtn.addEventListener('click', function () {
+            isEditing = true;
+            form.classList.add('edit-mode');
+
+            // Enable form controls
+            formControls.forEach(control => {
+                control.disabled = false;
+            });
+
+            // Update buttons
+            editBtn.style.display = 'none';
+            saveBtn.style.display = 'flex';
+            cancelBtn.style.display = 'flex';
+
+            // Update status
+            statusIndicator.textContent = 'Edit Mode';
+            statusIndicator.style.background = '#f59e0b';
+        });
+
+        cancelBtn.addEventListener('click', function () {
+            // Restore original data
+            formControls.forEach(control => {
+                control.value = originalData[control.name];
+            });
+
+            exitEditMode();
+        });
+
+        saveBtn.addEventListener('click', function () {
+            // Here you would typically send data to your Node.js backend
+            // For demo purposes, we'll just simulate saving
+
+            form.classList.add('loading');
+
+            // Simulate API call
+            setTimeout(() => {
+                // Update stored data with new values
+                storeOriginalData();
+
+                form.classList.remove('loading');
+                exitEditMode();
+
+                // Show success feedback
+                showNotification('Profile updated successfully!', 'success');
+            }, 1000);
+        });
+
+        function exitEditMode() {
+            isEditing = false;
+            form.classList.remove('edit-mode');
+
+            // Disable form controls
+            formControls.forEach(control => {
+                control.disabled = true;
+            });
+
+            // Update buttons
+            editBtn.style.display = 'flex';
+            saveBtn.style.display = 'none';
+            cancelBtn.style.display = 'none';
+
+            // Update status
+            statusIndicator.textContent = 'View Mode';
+            statusIndicator.style.background = '#10b981';
+        }
+
+        function showNotification(message, type) {
+            // Simple notification - you can enhance this
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${type === 'success' ? '#10b981' : '#ef4444'};
+                color: white;
+                padding: 15px 20px;
+                border-radius: 10px;
+                z-index: 1000;
+                animation: slideIn 0.3s ease;
+            `;
+            notification.textContent = message;
+
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // Prevent accidental page leave during editing
+        window.addEventListener('beforeunload', function (e) {
+            if (isEditing) {
+                e.preventDefault();
+                e.returnValue = '';
+            }
+        });
+    </script>
+</body>
+
+</html>
