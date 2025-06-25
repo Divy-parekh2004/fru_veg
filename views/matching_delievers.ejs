@@ -1,95 +1,56 @@
-<h2 style="text-align: center;">🚚 Deliverers in Your Area</h2>
+<!DOCTYPE html>
+<html lang="en">
 
-<% if (delievers.length === 0) { %>
-    <p style="text-align: center;">No deliverers found in your area.</p>
-<% } else { %>
-    <div class="grid">
-        <% delievers.forEach(deliever => { %>
-            <div class="card">
-                <h3><%= deliever.fullname %></h3>
-                <p><strong>Mobile:</strong> <%= deliever.mobilenumber %></p>
-                <p><strong>Address:</strong> <%= deliever.full_address %></p>
-                <p><strong>City:</strong> <%= deliever.area_city %></p>
-                <p><strong>State:</strong> <%= deliever.state %></p>
-                <p><strong>Pincode:</strong> <%= deliever.pincode %></p>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+        crossorigin="anonymous"></script>
+</head>
 
-                <!-- 🛒 View Price List Button -->
-                <a href="/deliever/<%= deliever._id %>/prices" class="btn">🛒 View Price List</a>
-            </div>
-        <% }) %>
+<body>
+
+    <h2 class="title">🚚 Deliverers in Your Area</h2>
+
+    <% if (delievers.length===0) { %>
+        <p class="no-result">No deliverers found in your area.</p>
+        <% } else { %>
+            <div class="d-flex m-5 gap-3 flex-wrap">
+
+                <% delievers.forEach(deliever=> { %>
+
+                    
+                    <div class="card" style="width: 18rem;">
+    <div class="card-body">
+        <h5 class="card-title"><%= deliever.fullname %></h5>
+        <p class="card-text">Delivery information and contact details.</p>
     </div>
-<% } %>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item"><strong>Mobile:</strong> <%= deliever.mobilenumber %></li>
+        <li class="list-group-item"><strong>Address:</strong> <%= deliever.full_address %></li>
+        <li class="list-group-item"><strong>City:</strong> <%= deliever.area_city %></li>
+        <li class="list-group-item"><strong>State:</strong> <%= deliever.state %></li>
+        <li class="list-group-item"><strong>Pincode:</strong> <%= deliever.pincode %></li>
+    </ul>
+    <div class="card-body">
+        <a href="/deliever/<%= deliever._id %>/prices" class="card-link btn btn-primary">🛒 View Price List</a>
+    </div>
+</div>
 
-<a href="/" class="back-btn">🔙 Go Back</a>
+                    <% }) %>
+            </div>
+            
+            <% } %>
 
-<style>
-    .grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 16px;
-        margin: 20px 10px;
-    }
+                <a href="/" class="back-btn">🔙 Go Back</a>
 
-    .card {
-        background-color: #f9f9f9;
-        padding: 15px;
-        border-radius: 10px;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-        transition: transform 0.2s ease;
-    }
 
-    .card:hover {
-        transform: translateY(-4px);
-    }
 
-    .btn {
-        margin-top: 10px;
-        display: inline-block;
-        padding: 10px 20px;
-        background-color: #28a745;
-        color: white;
-        text-decoration: none;
-        border-radius: 5px;
-        font-weight: bold;
-        text-align: center;
-        width: 100%;
-        box-sizing: border-box;
-    }
 
-    .btn:hover {
-        background-color: #218838;
-    }
+</body>
 
-    .back-btn {
-        margin: 20px auto;
-        display: block;
-        padding: 10px 20px;
-        background-color: #007bff;
-        color: white;
-        text-decoration: none;
-        border-radius: 5px;
-        text-align: center;
-        width: max-content;
-    }
-
-    .back-btn:hover {
-        background-color: #0056b3;
-    }
-
-    @media (max-width: 480px) {
-        h2 {
-            font-size: 20px;
-            margin-top: 15px;
-        }
-
-        .card {
-            padding: 12px;
-            font-size: 14px;
-        }
-
-        .btn {
-            padding: 8px 16px;
-            font-size: 14px;
-        }
-    }
-</style>
+</html>

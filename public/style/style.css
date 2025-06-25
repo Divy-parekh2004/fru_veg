@@ -91,14 +91,21 @@
 
     .home_buttons {
         display: flex;
-        justify-content: space-between;  /* Spread buttons out evenly */
-        gap: 10px; /* Slight gap between buttons */
-        flex-wrap: nowrap;  /* Prevent wrapping */
+        justify-content: center;
+        gap: 10px;
+        flex-wrap: wrap; /* Don't wrap to next line */
+        /* padding: 0 15x; */
     }
 
     .signup-btn {
-        width: 48%; /* Set button width to 48% for side-by-side display */
-        padding: 12px 0; /* Adjust padding for mobile */
+        flex: 1 1 auto;
+        min-width: 100px; /* Ensure enough width for full text */
+        max-width: 120px;
+        font-size: 0.85em; /* Slightly reduce font for long labels */
+        padding: 10px 5px;
+        white-space: nowrap; /* Prevent line breaks */
+        text-align: center;
+        margin: 5px 0;
     }
 }
 
@@ -161,9 +168,8 @@
 
 
 
-
-  /* home container 2 start here  */
-  .home_con_2 {
+/* home container 2 start here  */
+.home_con_2 {
     width: 100%;
     display: flex;
     justify-content: center;
@@ -182,7 +188,7 @@
 
 .home_con_2_text {
     width: 50%; 
-    margin-left: 20px; /* Changed from margin-right */
+    margin-left: 20px; /* Keeps text on left side with margin */
 }
 
 .header {
@@ -207,15 +213,20 @@
     .home_con_2_content {
         flex-direction: column;
         text-align: center;
+        padding: 0 10px; /* Added padding to avoid edge sticking */
     }
 
     /* Ensures text appears above image */
     .home_con_2_image {
-        order: 2;  /* Places the image below the text */
+        order: 2;
+        width: 100%;
+        margin: 0 auto; /* Center the image container */
     }
 
     .home_con_2_text {
-        order: 1;  /* Places the text above the image */
+        order: 1;
+        width: 100%;
+        margin: 0 auto; /* Center the text container */
     }
 
     .header {
@@ -223,12 +234,12 @@
         margin-bottom: 5px;
     }
 
-    .home_con_2_text, .home_con_2_image {
-        width: 100%;
-    }
-
     .home_con_2_image img {
         width: 100%;
+        max-width: 100%;
+        height: auto;
+        display: block; /* Remove inline gaps */
+        margin: 0 auto; /* Center the image itself */
     }
 }
 

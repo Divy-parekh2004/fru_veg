@@ -20,7 +20,6 @@ const customerSchema = new mongoose.Schema({
     userId: { type: mongoose.Schema.Types.ObjectId, ref: 'signup', required: true },
     fullname: { type: String, required: true },
     mobilenumber: { type: String, required: true },
-    userid: { type: String, required: true },
     full_address: { type: String, required: true },
     country: { type: String, required: true },
     state: { type: String },
@@ -33,7 +32,6 @@ const delieverSchema = new mongoose.Schema({
     role: { type: String, required: true },
     fullname: { type: String, required: true },
     mobilenumber: { type: String, required: true },
-    userid: { type: String, required: true },
     full_address: { type: String, required: true },
     country: { type: String, required: true },
     state: { type: String },
@@ -54,6 +52,7 @@ const loginSchema = new mongoose.Schema({
     identifier: { type: String, required: true },
     timestamp: { type: Date, default: Date.now }
 });
+
 const priceSchema = new mongoose.Schema({
     delieverId: { type: mongoose.Schema.Types.ObjectId, ref: 'deliever', required: true },
     prices: [
@@ -72,16 +71,13 @@ const Price = mongoose.model("price", priceSchema);
 //     .connect('mongodb://127.0.0.1:27017/fru_veg')
 //     .then(() => console.log("MongoDB Connected"))
 //     .catch((err) => console.log("MongoDB Connection Error:", err));
-mongoose.connect(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-})
+
+mongoose.connect('mongodb://localhost:27017/mydb')
 .then(() => console.log("✅ MongoDB Atlas Connected Successfully"))
 .catch((err) => {
     console.error("❌ MongoDB Connection Error:", err);
     process.exit(1); // Optional: stop server if DB fails
 });
-
 
 const Customer = mongoose.model("customer", customerSchema);
 const Deliever = mongoose.model("deliever", delieverSchema);
@@ -258,10 +254,6 @@ app.get('/deliever/:id/prices', requireLogin, async (req, res) => {
     }
 });
 
-
-
-
-
 app.post('/signup', async (req, res) => {
     const { fullname, mobile, email, password, confirmpassword } = req.body;
 
@@ -325,7 +317,7 @@ app.post('/login', async (req, res) => {
 });
 
 app.post('/customer', requireLogin, async (req, res) => {
-    const { fullname,mobilenumber , userid , full_address, country, state, area_city, pincode } = req.body;
+    const { fullname,mobilenumber ,full_address, country, state, area_city, pincode } = req.body;
 
     if (!full_address || !country) {
         return res.status(400).send("Missing required fields");
@@ -338,15 +330,7 @@ app.post('/customer', requireLogin, async (req, res) => {
         if (existingProfile) return res.status(400).send("Customer profile already exists");
 
         const newCustomer = new Customer({
-            userId,
-            fullname,
-            mobilenumber,
-            userid,
-            full_address,
-            country,
-            state,
-            area_city,
-            pincode
+            userId , fullname ,mobilenumber,full_address , country , state , area_city , pincode
         });
 
         await newCustomer.save();
@@ -361,7 +345,7 @@ app.post('/customer', requireLogin, async (req, res) => {
 });
 
 app.post('/deliever', requireLogin, async (req, res) => {
-    const { role,fullname, mobilenumber,userid, full_address, country, state, area_city, pincode } = req.body;
+    const { role,fullname, mobilenumber,full_address, country, state, area_city, pincode } = req.body;
 
     if (!role || !full_address || !country) {
         return res.status(400).send("Missing required fields");
@@ -374,16 +358,7 @@ app.post('/deliever', requireLogin, async (req, res) => {
         if (existingProfile) return res.status(400).send("Deliever profile already exists");
 
         const newDeliever = new Deliever({
-            userId,
-            role,
-            fullname,
-            mobilenumber,
-            userid,
-            full_address,
-            country,
-            state,
-            area_city,
-            pincode
+            userId , role , fullname , mobilenumber , full_address , country , state , area_city , pincode
         });
 
         await newDeliever.save();
@@ -419,7 +394,6 @@ app.post('/edit-prices', requireLogin, async (req, res) => {
         res.status(500).send("Server error");
     }
 });
-
 
 app.listen(port, () => {
     console.log(`🚀 Server is running on http://localhost:${port}`);
