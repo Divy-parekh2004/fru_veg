@@ -72,7 +72,7 @@ const Price = mongoose.model("price", priceSchema);
 //     .then(() => console.log("MongoDB Connected"))
 //     .catch((err) => console.log("MongoDB Connection Error:", err));
 
-mongoose.connect('mongodb://localhost:27017/mydb')
+mongoose.connect(process.env.MONGODB_URI)
 .then(() => console.log("✅ MongoDB Atlas Connected Successfully"))
 .catch((err) => {
     console.error("❌ MongoDB Connection Error:", err);
