@@ -13,52 +13,63 @@
 <body>
 
   <!-- Navbar -->
- <nav class="navbar navbar-expand-lg navbar_bg">
+<nav class="navbar navbar-expand-lg navbar_bg">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">fru_veg</a>
+    <a class="navbar-brand text-white fw-bold" href="#">fru_veg</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
       aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto">
+      <ul class="navbar-nav ms-auto align-items-center">
         <li class="nav-item">
           <a class="nav-link active" href="#">Home</a>
         </li>
 
         <% if (user && user.hasCustomerProfile) { %>
           <li class="nav-item">
-            <a class="nav-link" href="/matching-delievers">delievers</a>
+            <a class="nav-link" href="/matching-delievers">Delievers</a>
           </li>
         <% } %>
 
         <% if (user && user.hasDelieverProfile) { %>
           <li class="nav-item">
-            <a class="nav-link" href="/matching-customers">Customers Matching</a>
+            <a class="nav-link" href="/matching-customers">Customers</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/edit-prices">🛒 Edit Prices</a>
           </li>
         <% } %>
+
+        <% if (session && user && user.hasCustomerProfile) { %>
+          <li class="nav-item">
+            <a class="btn btn-outline-light ms-lg-3 mt-2 mt-lg-0" href="/my_profile_customer">Profile</a>
+          </li>
+        <% } %>
+
+        <% if (session && user && user.hasDelieverProfile) { %>
+          <li class="nav-item">
+            <a class="btn btn-outline-light ms-lg-3 mt-2 mt-lg-0" href="/my_del_profile">Profile</a>
+          </li>
+        <% } %>
+
+        <% if (session) { %>
+          <li class="nav-item">
+            <a class="btn btn-danger ms-lg-3 mt-2 mt-lg-0" href="/logout">Logout</a>
+          </li>
+        <% } else { %>
+          <li class="nav-item">
+            <a class="btn btn-success ms-lg-3 mt-2 mt-lg-0" href="/login">Login</a>
+          </li>
+        <% } %>
       </ul>
-
-      <% if (session && user && user.hasCustomerProfile) { %>
-        <a class="btn btn-outline-info ms-3" href="/my_profile_customer" style="color: white; border-color: white;">Profile</a>
-      <% } %>
-
-      <% if (session && user && user.hasDelieverProfile) { %>
-        <a class="btn btn-outline-info ms-3" href="/my_del_profile">Profile</a>
-      <% } %>
-
-      <% if (session) { %>
-        <a class="btn btn-outline-danger ms-3" href="/logout">Logout</a>
-      <% } else { %>
-        <a class="btn btn-outline-success ms-3" href="/login">Login</a>
-      <% } %>
     </div>
   </div>
 </nav>
+
+
+
 
 
   <div class="home_starting">

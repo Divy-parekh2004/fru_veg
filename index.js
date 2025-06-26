@@ -254,6 +254,74 @@ app.get('/deliever/:id/prices', requireLogin, async (req, res) => {
     }
 });
 
+app.post('/cart/add', requireLogin, (req, res) => {
+    const { itemName, price, quantity } = req.body;
+
+    if (!req.session.cart) req.session.cart = [];
+
+    const existing = req.session.cart.find(item => item.itemName === itemName);
+    if (existing) {
+        existing.quantity += parseInt(quantity);
+    } else {
+        req.session.cart.push({
+            itemName,
+            price: parseFloat(price),
+            quantity: parseInt(quantity),
+        });
+    }
+
+    res.redirect('/cart');
+});
+
+app.get('/cart', requireLogin, (req, res) => {
+    const cart = req.session.cart || [];
+    const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    res.render('cart', { cart, total });
+});
+app.post('/cart/bulk-add', requireLogin, (req, res) => {
+    const items = req.body.items;
+
+    if (!Array.isArray(items)) return res.redirect('/cart');
+
+    if (!req.session.cart) req.session.cart = [];
+
+    items.forEach(item => {
+        const quantity = parseFloat(item.quantity);
+        if (quantity > 0) {
+            const existing = req.session.cart.find(i => i.itemName === item.name);
+            if (existing) {
+                existing.quantity += quantity;
+            } else {
+                req.session.cart.push({
+                    itemName: item.name,
+                    price: parseFloat(item.price),
+                    quantity
+                });
+            }
+        }
+    });
+
+    res.redirect('/cart');
+});
+
+
+app.get('/make-payment', requireLogin, (req, res) => {
+    const cart = req.session.cart || [];
+    const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+    // clear cart if needed here
+    // req.session.cart = [];
+
+    res.render('make_payment', { cart, total });
+});
+
+app.post('/finalize-payment', requireLogin, (req, res) => {
+    // In real app, do payment processing here (gateway)
+    req.session.cart = [];
+    res.send("✅ Payment successful and order placed!");
+});
+
+
 app.post('/signup', async (req, res) => {
     const { fullname, mobile, email, password, confirmpassword } = req.body;
 
@@ -278,7 +346,7 @@ app.post('/signup', async (req, res) => {
             mobile: savedUser.mobile
         };
 
-        res.redirect("/");
+        res.redirect("/login");
     } catch (err) {
         console.error(err);
         res.status(500).send("Error saving user: " + err);
