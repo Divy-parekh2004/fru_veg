@@ -173,7 +173,6 @@ app.get('/my_del_profile' ,requireLogin , async (req,res) => {
     }
 })
 
-
 app.get('/matching-customers', requireLogin, async (req, res) => {
     try {
         const deliever = await Deliever.findOne({ userId: req.session.user.id });
@@ -278,6 +277,7 @@ app.get('/cart', requireLogin, (req, res) => {
     const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
     res.render('cart', { cart, total });
 });
+
 app.post('/cart/bulk-add', requireLogin, (req, res) => {
     const items = req.body.items;
 
@@ -308,17 +308,19 @@ app.post('/cart/bulk-add', requireLogin, (req, res) => {
 app.get('/make-payment', requireLogin, (req, res) => {
     const cart = req.session.cart || [];
     const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-
-    // clear cart if needed here
-    // req.session.cart = [];
-
     res.render('make_payment', { cart, total });
 });
+
+app.get('finilize_payment' , requireLogin,(req,res) => {
+    res.render('finilize-payment');
+})
+
+
 
 app.post('/finalize-payment', requireLogin, (req, res) => {
     // In real app, do payment processing here (gateway)
     req.session.cart = [];
-    res.send("✅ Payment successful and order placed!");
+    res.render('finilize_payment');
 });
 
 
@@ -375,9 +377,28 @@ app.post('/login', async (req, res) => {
 
         await new login({ identifier }).save();
 
-        const redirectTo = req.session.redirectTo || '/';
-        delete req.session.redirectTo;
-        res.redirect(redirectTo);
+        // ✅ Check profile
+        const customer = await Customer.findOne({ userId: user._id });
+        const deliever = await Deliever.findOne({ userId: user._id });
+
+        // ✅ Smart redirect based on session and profile
+        if (req.session.redirectTo) {
+            const redirectPath = req.session.redirectTo;
+            delete req.session.redirectTo;
+
+            if (redirectPath === '/customer' && customer) {
+                return res.redirect('/'); // or '/my_customer'
+            }
+
+            if (redirectPath === '/deliever' && deliever) {
+                return res.redirect('/'); // or '/my_deliever'
+            }
+
+            return res.redirect(redirectPath);
+        }
+
+        // Default: go to homepage
+        res.redirect('/');
     } catch (err) {
         console.error("Login error:", err);
         res.status(500).send("Server error during login");
